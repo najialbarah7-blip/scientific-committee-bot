@@ -416,11 +416,15 @@ def main():
 
     print("🤖 البوت يعمل الآن...")
 
+public_domain = os.getenv("KOYEB_PUBLIC_DOMAIN")
+if not public_domain:
+    raise RuntimeError("KOYEB_PUBLIC_DOMAIN غير موجود.")
+
 app.run_webhook(
     listen="0.0.0.0",
     port=int(os.getenv("PORT", "10000")),
-    webhook_url=os.getenv("WEBHOOK_URL"),
+    url_path="webhook",
+    webhook_url=f"https://{public_domain}/webhook",
 )
-
 if __name__ == "__main__":
     main()
